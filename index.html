@@ -1,0 +1,78 @@
+<script>
+function generatePlan(){
+    const months = parseInt(document.getElementById("months").value);
+    const level = document.getElementById("level").value;
+    const company = document.getElementById("company").value;
+    const output = document.getElementById("output");
+
+    output.innerHTML = "";
+
+    if(isNaN(months) || months < 1 || months > 48){
+        output.innerHTML = "<p>Please enter valid months (1–48)</p>";
+        return;
+    }
+
+    // Month cycle (EVERY 4 months changes content)
+    const monthThemes = [
+        "Concept Building",
+        "Practice & Accuracy",
+        "Speed & Problem Solving",
+        "Mock Tests & Revision"
+    ];
+
+    for(let i = 1; i <= months; i++){
+        let theme = monthThemes[(i - 1) % 4];
+        let plan = "";
+
+        /* ---------- LEVEL DIFFERENCE ---------- */
+        if(level === "beginner"){
+            if(theme === "Concept Building")
+                plan += "Learn basic syntax, variables, loops<br>";
+            else if(theme === "Practice & Accuracy")
+                plan += "Solve easy coding problems daily<br>";
+            else if(theme === "Speed & Problem Solving")
+                plan += "Timed practice of basic problems<br>";
+            else
+                plan += "Revise basics & analyze mistakes<br>";
+        }
+
+        else if(level === "intermediate"){
+            if(theme === "Concept Building")
+                plan += "Learn stacks, queues, linked list<br>";
+            else if(theme === "Practice & Accuracy")
+                plan += "Solve medium DSA problems<br>";
+            else if(theme === "Speed & Problem Solving")
+                plan += "Improve coding speed with constraints<br>";
+            else
+                plan += "Take mocks & revise weak DSA topics<br>";
+        }
+
+        else{
+            if(theme === "Concept Building")
+                plan += "Advanced DSA (Trees, Graphs, DP)<br>";
+            else if(theme === "Practice & Accuracy")
+                plan += "Solve interview-level problems<br>";
+            else if(theme === "Speed & Problem Solving")
+                plan += "Optimize solutions (time & space)<br>";
+            else
+                plan += "Full mock interviews & revision<br>";
+        }
+
+        /* ---------- COMPANY DIFFERENCE ---------- */
+        if(company === "service"){
+            plan += "Aptitude & reasoning practice<br>";
+            plan += "HR & behavioral questions<br>";
+        } else {
+            plan += "LeetCode / Codeforces practice<br>";
+            plan += "System design basics<br>";
+        }
+
+        output.innerHTML += `
+        <div class="month">
+            <b>Month ${i}</b><br>
+            <b>Theme:</b> ${theme}<br>
+            ${plan}
+        </div>`;
+    }
+}
+</script>
